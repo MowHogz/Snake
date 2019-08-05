@@ -6,8 +6,13 @@ def Input(text):
 		return Input(text)
 def con(brd):
 	text = ""
+	for unit in brd[0]:
+		text += "-"
+	text += "\n"
 	for row in brd:
 		for unit in row:
 			text += str(unit)
-		text += "\n"
+		text += "|\n"
+	for unit in brd[0]:
+		text += "-"
 	return text
