@@ -7,8 +7,8 @@ from user import con, Input
 from bordm import convert
 from game import gen_food
 head = [0,2]
-height = 30#Input("Please enter the height of the board: ")
-width = 30#Input("Please enter the width of the board: ")
+height = Input("Please enter the height of the board: ")
+width = Input("Please enter the width of the board: ")
 brd = []
 snake = [[0,0,'|'],[0,1,'|'],[0,2,'|']]
 	
@@ -37,6 +37,11 @@ for row in range(height):
 		brd[row].append(" ")
 	#print (head )
 	#print (food)
+food_n = 3
+food = []
+convert(height,width,snake,food)
+speed = Input("Please Enter the speed of the snake: (200 recommended)")#500
+
 def move(brd,head,d,moves,height,width,snake,food): #brd - board, head - location, d - direction; char, moves - value of every char; in which direction every char moves, height, width.
 	head = head[:2]
 	if d == "U":
@@ -102,12 +107,9 @@ def press(d):#program changes direction if a direction is pressed
 	elif keyboard.is_pressed("a"):
 		d = "L"
 	return d
-food_n = 40
-food = []
+
 for i in range(food_n):
 	food.append(gen_food(brd,height,width))
-convert(height,width,snake,food)
-speed = Input("Please Enter the speed of the snake:")#500
 d = "D"
 while True:
 	
