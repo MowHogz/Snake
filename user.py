@@ -1,3 +1,4 @@
+
 def Input(text):
 	try: 
 		return int(input(text))

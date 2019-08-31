@@ -6,9 +6,11 @@ import msvcrt
 from user import con, Input
 from bordm import convert
 from game import gen_food
+from screen import screen_config
 head = [0,2]
-height = Input("Please enter the height of the board: ")
-width = Input("Please enter the width of the board: ")
+speed = Input("Please Enter the speed of the snake: (200 recommended)")#500
+width,height = screen_config(speed,200,200)
+
 brd = []
 snake = [[0,0,'|'],[0,1,'|'],[0,2,'|']]
 	
@@ -40,7 +42,6 @@ for row in range(height):
 food_n = 3
 food = []
 convert(height,width,snake,food)
-speed = Input("Please Enter the speed of the snake: (200 recommended)")#500
 
 def move(brd,head,d,moves,height,width,snake,food): #brd - board, head - location, d - direction; char, moves - value of every char; in which direction every char moves, height, width.
 	head = head[:2]
