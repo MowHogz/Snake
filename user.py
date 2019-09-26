@@ -1,19 +1,13 @@
-
-def Input(text):
-	try: 
-		return int(input(text))
-	except:
-		print("Numbers Only! Try again.")
-		return Input(text)
-def con(brd):
-	text = ""
-	for unit in brd[0]:
-		text += "-"
-	text += "\n"
-	for row in brd:
-		for unit in row:
-			text += str(unit)
-		text += "|\n"
-	for unit in brd[0]:
-		text += "-"
-	return text
+from stf import clr
+import os
+cmnd = clr()
+def Printer(matrix,score):
+    text = ""
+    text += "Score: " + str(score) + "\n"
+    for row in matrix:
+        for unit in row:
+            text += unit
+        text += "\n"
+    
+    os.system(cmnd)
+    print (text)
