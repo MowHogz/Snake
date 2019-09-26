@@ -8,7 +8,7 @@ height = 50
 width = 20 
 speed = 0.01
 height,width = screen_config(speed)
-num_food = 3
+num_food = 250
 matrix = matrix_cre(height,width)
 for i in range(num_food):
     gen_food(matrix,height,width)

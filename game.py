@@ -1,7 +1,7 @@
 from random import randint
 def gen_food(matrix,height,width):#generates food and puts it in the board 
-    x = randint(0,width-1)
-    y = randint(0,height-1)
+    x = randint(0,width) #width and height instead of -1 because there is an extra row (for the '|')
+    y = randint(0,height)
     if matrix[y][x] == ' ':
         matrix[y][x] = '*'
     else:
