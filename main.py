@@ -10,13 +10,17 @@ matrix = creator(height,width)
 
 speed = 10
 players = 3
+players = int(input("Enter the number of players: "))
 amounts_of_foods = 30
 for i in range(amounts_of_foods):
     gen_food(matrix,height,width)
 snook = snake(0,0)
+print ("Player 1 (top player) uses WSDA controls")
 if players > 1:
+    print ("Player 2 (second from top) uses IKLJ controls")
     snack = snake(5,0)
     if players > 2:
+        print ("Player 3 (3rd from top) uses TGHF controls")
         sneak = snake(10,0)
 d = []
 """
@@ -60,6 +64,14 @@ a = 'r'
 b = 'r'
 c = 'r'
 goon = True
+raw_input("Press Enter to start")
+for i in range(3):
+    os.system('cls')
+    print (str("\n" * 3) + str(' ' * int(width/2)) + str(3-i) )
+    time.sleep(1)
+os.system('cls')
+print (str("\n" * 3) + str(' ' * int(width/2)) + "Go!" )
+time.sleep(1)
 while True:
     d = []
     for i in range(25):
