@@ -1,28 +1,40 @@
+import time
 from kbr import press
-import time 
-from brd import matrix_cre
-from game import gen_food,mover
-from user import Printer
-from scrn import screen_config
-height = 50 
-width = 20 
-speed = 0.01
-height,width = screen_config(speed)
-num_food = 3
-matrix = matrix_cre(height,width)
-for i in range(num_food):
+from mat import creator
+from food import gen_food
+from snake import snake
+import os
+height = 20
+width = 20
+matrix = creator(height,width)
+
+speed = 10
+
+amounts_of_foods = 3
+for i in range(amounts_of_foods):
     gen_food(matrix,height,width)
-snake = [[1,1],[0,1]]
-direc = 'd'
-gaming = True
+snook = snake()
+d = 'd'
+for i in range(width):
+    matrix[0][i] = 'X'
 
 
-while gaming:
+def Printer(matrix,height,width):
+    text = ""
+    for row in matrix:
+        text += "\n"
+        for unit in row:
+            text += unit
+    os.system('cls')
+    print (text) 
+
+while True:
     for i in range(25):
-        time.sleep(speed)
-        direc = press(direc)
-    print (snake)
-    if not mover(matrix,snake,direc,height,width):
-        gaming = False
-    Printer(matrix,len(snake))
-    
+        time.sleep(0.005)
+        d = press(d)
+    if not snook.move(matrix,height,width,d):
+        print("Your snake Died, So shall you!!!")
+        break
+    Printer(matrix,height,width)
+
+
