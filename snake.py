@@ -3,18 +3,29 @@ from food import gen_food
 class snake():
     def __init__(self,y,x):
         self.body = [[y,x]]
-        
+        self.d = 'r'
+    def key(self,key_press):
+        if key_press == ['b']:
+            self.d = [self.d[0],'b']
+        elif not key_press == []:
+            self.d = key_press
     def move(self,matrix,height,width,d):
         #this part of the function moves the head one space forward 
-        
-        if d == 'r':
+        self.key(d)
+        print (self.d)
+
+        if 'b' in self.d and len(self.body) > 3:
+            print ("boosting")
+            self.remove_tail(matrix)
+            self.d.remove('b')
+            self.move(matrix,height,width,self.d)
+        if 'r' in self.d:
             self.right(matrix)
-        elif d == 'l':
-            
+        elif 'l' in self.d:
             self.left(matrix)
-        elif d == 'u':
+        elif 'u' in self.d:
             self.up(matrix)
-        elif d == 'd':
+        elif 'd' in self.d:
             self.down(matrix)
         
         head = self.body[0]
@@ -42,7 +53,9 @@ class snake():
         #give the old head the new shape it got 
         #insert head 
 
-
+    def remove_tail(self,matrix):
+        tail = self.body.pop()
+        remove(matrix,tail)
     def right(self,matrix):
         #mark (old) head 
         head = self.body[0]

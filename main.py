@@ -32,25 +32,25 @@ for i in range(width):
 
 """
 def con1(d,o):
-    list1 = ['w','s','d','a']
-    list2 = ['u','d','r','l']
+    list1 = ['w','s','d','a','e']
+    list2 = ['u','d','r','l','b']
     for l in range(len(list1)):
-        if list1[l] in d:
-            return list2[l]
+        if list1[l] in d and list2[l] not in o:
+            o.append(list2[l])
     return o
 def con2(d,o):
-    list1 = ['i','k','l','j']
-    list2 = ['u','d','r','l']
+    list1 = ['i','k','l','j','o']
+    list2 = ['u','d','r','l','b']
     for l in range(len(list1)):
-        if list1[l] in d:
-            return list2[l]
+        if list1[l] in d and list2[l] not in o:
+            o.append(list2[l])
     return o
 def con3(d,o):
-    list1 = ['t','g','h','f']
-    list2 = ['u','d','r','l']
+    list1 = ['t','g','h','f','y']
+    list2 = ['u','d','r','l','b']
     for l in range(len(list1)):
-        if list1[l] in d:
-            return list2[l]
+        if list1[l] in d and list2[l] not in o:
+            o.append(list2[l])
     return o
 def Printer(matrix,height,width):
     text = ""
@@ -60,9 +60,7 @@ def Printer(matrix,height,width):
             text += unit
     os.system('cls')
     print (text) 
-a = 'r'
-b = 'r'
-c = 'r'
+
 goon = True
 raw_input("Press Enter to start")
 for i in range(3):
@@ -74,6 +72,9 @@ print (str("\n" * 3) + str(' ' * int(width/2)) + "Go!" )
 time.sleep(1)
 while True:
     d = []
+    a = []
+    b = []
+    c = []
     for i in range(25):
         time.sleep(0.005)
         d = press(d)
