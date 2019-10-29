@@ -8,8 +8,8 @@ from wndw import get_terminal_size
 import os
 
  
- 
-
+raw_input("Press enter after defining screen size")
+os.system('cls')
 if __name__ == "__main__":
     width,height = get_terminal_size()
     print  'width =', width, 'height =', height
