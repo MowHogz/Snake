@@ -3,9 +3,19 @@ from kbr import press
 from mat import creator
 from food import gen_food
 from snake import snake
+from wndw import get_terminal_size
+
 import os
-height = 60
-width = 60
+
+ 
+ 
+
+if __name__ == "__main__":
+    width,height = get_terminal_size()
+    print  'width =', width, 'height =', height
+
+height += -1
+
 matrix = creator(height,width)
 
 speed = 10
@@ -106,6 +116,5 @@ while True:
                 else: break
         
     Printer(matrix,height,width)
-    print ("a: {} b:{}".format(a,b))
 
 

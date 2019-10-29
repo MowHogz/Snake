@@ -12,7 +12,7 @@ class snake():
     def move(self,matrix,height,width,d):
         #this part of the function moves the head one space forward 
         self.key(d)
-        print (self.d)
+        
 
         if 'b' in self.d and len(self.body) > 3:
             print ("boosting")
