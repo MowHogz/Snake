@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print  'width =', width, 'height =', height
 
 height += -1
-
+width = width/2
 matrix = creator(height,width)
 
 speed = 10
@@ -67,7 +67,7 @@ def Printer(matrix,height,width):
     for row in matrix:
         text += "\n"
         for unit in row:
-            text += unit
+            text += ' ' + str(unit)
     os.system('cls')
     print (text) 
 
@@ -75,10 +75,10 @@ goon = True
 raw_input("Press Enter to start")
 for i in range(3):
     os.system('cls')
-    print (str("\n" * 3) + str(' ' * int(width/2)) + str(3-i) )
+    print (str("\n" * 3) + str(' ' * int(width)) + str(3-i) )
     time.sleep(1)
 os.system('cls')
-print (str("\n" * 3) + str(' ' * int(width/2)) + "Go!" )
+print (str("\n" * 3) + str(' ' * int(width)) + "Go!" )
 time.sleep(1)
 while True:
     d = []
