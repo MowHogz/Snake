@@ -1,81 +1,76 @@
-from space import unit,space
-#snake is the snake on the board 
-#snake.body is the list of of the unit objects which the snake is made of 
-#snake.keys are the keys that have been pressed but not yet processed (reset every frame) - for the game object to mess with 
-#self.y - y axis
-#self.x - x axis
-#grow how much extra/less the snake should grow 
-# 
-#move() function that moves the snake every frame  
+import time 
+from food import gen_food
 class snake():
-    def __init__(self,height,width,game):
-        self.game = game
-        self.body = [] #the first item will be the tail, and the last item will be the head 
-        self.body.append(unit('O',height,width,game))
-        self.direction = 'd'#
-        self.keys = []
-        self.y = height
-        self.x = width 
-        self.grow = 0 #if the tail should grow/shrink not like usual (a positive number makes the tail stay longer, a negative number makes the tail shrink faster)
-    def director(self): #updates the direction value (u,d,r,l) (can be more than one)
-        new_direction = []
+    def __init__(self):
+        self.body = [[0,0]]
+        self.head = [0,0]
+    def move(self,matrix,height,width,d):
+        #this part of the function moves the head one space forward 
         
-        for l in ['u','d','r','l']:
-            if l in self.keys:
-                new_direction.append(l)
-        self.keys = []
-        if new_direction == []:     
+        if d == 'd':
+            self.right(matrix)
+        elif d == 'a':
+            self.left(matrix)
+        elif d == 'w':
+            self.up(matrix)
+        elif d == 's':
+            self.down(matrix)
+        
+        head = self.body[0]
+
+        if head[0] < 0 or head[0] >= height or head[1] < 0 or head[1] >= width:
+            print("You knocked into a wall")
             return False
-        
-        else:                   #if there has been new key input detected, update the self.direction with the new direction
-            self.direction = new_direction
-        
+        #if going into nowhere kill tail 
+        if matrix[head[0]][head[1]] == ' ':
+            tail = self.body.pop()
+            remove(matrix,tail)
+        elif matrix[head[0]][head[1]] == 'X':
 
-    def move(self):
-        self.director()     #updates the .direction with the direction the snake should be moving 
-        self.move_head()    #moves the snakes head in the direction the snake should be moving 
-        self.move_tail()    #cuts of 0,-1,-2 off the snake's tail based on the situation (.grow)
-    def move_head(self): #moves head one space forward (and changes the 'emoji' of the second space)
-        t = "" #look for second piece (old head)
- 
-        if 'u' in self.direction:       #up 
-            self.y -= 1
-            if 'r' in self.direction:
-                t = "/"
-            elif 'l' in self.direction:
-                t = "\\"
-
-        elif 'd' in self.direction:     #down
-            self.y += 1
-            if 'r' in self.direction:
-                t = "\\"
-            elif 'l' in self.direction:
-                t = "/"
+            while True:
+                if not head == gen_food(matrix,height,width):
+                    break
         else:
-            t = "-"  # - moving right or left 
+            return False
+        insert(matrix,head,'O')
+        return True
+        
+        #if location of head is ' ' - nothing kill, one piece of the tail off (kill piece off of board and off snake )
+        #if location is snake return False 
+        #if location is food don't kill last piece 
+        #give the old head the new shape it got 
+        #insert head 
 
-        if 'r' in self.direction:       #right
-            self.x += 1
 
-        elif 'l' in self.direction:     #left
-            self.x -= 1
+    def right(self,matrix):
+        #mark (old) head 
+        head = self.body[0]
 
-        else:
-            t = '|'  # | moving up or down 
-        self.body[len(self.body)-1].t = t
-        self.body.append(unit('O',self.y,self.x, self.game))
+        #replace the head with a body part in the matrix 
+        insert(matrix,head,'-')
+
+        #insert location of new head into body
+        self.body.insert(0, [head[0] , head[1]+1] )
+
+    def left(self,matrix):
+        head = self.body[0]
+        insert(matrix,head,'-')
+        self.body.insert(0, [head[0] , head[1]-1] )
+
+    def up(self,matrix):
+        head = self.body[0]
+        insert(matrix,head,'|')
+        self.body.insert(0, [head[0] - 1 , head[1] ] )
+        
+    def down(self,matrix):
+        head = self.body[0]
+        insert(matrix,head,'|')
+        self.body.insert(0, [head[0] + 1 , head[1] ] )
     
-    def move_tail(self):    #moves tail 
-        if self.grow > 0:       # if tail should grow faster 
-                                # don't shrink
-            self.grow -= 1      # grow --
-            return 0
-        else:                   #if tail should shrink
-            self.cut_tail()     # shrink tail
-            if self.grow < 0:   # if tail should shrink extra 
-                self.cut_tail() # shrink one extra time 
-                self.grow += 1  # count that shrink
-            else: pass
-    def cut_tail(self):     #removes the snake's tail safely (with filling in the tile in the game's matrix)
-        self.body[0].replace(space())
-        self.body.pop(0)
+
+def insert(matrix,loc,char):
+    matrix[loc[0]][loc[1]] = char
+
+def remove(matrix,loc):
+    matrix[loc[0]][loc[1]] = ' '
+    
